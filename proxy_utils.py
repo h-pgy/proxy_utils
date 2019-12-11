@@ -41,9 +41,10 @@ class ProxySetter:
 
         content = (
             'proxy_servers:'
-            '\n\thttp: {http}'
-            '\n\thttps: {https}'
+            '\n    http: {http}'
+            '\n    https: {https}'
         )
+
 
         content = content.format(http = uri_http, https = uri_https)
 
@@ -58,12 +59,12 @@ class ProxySetter:
 
         content = (
             '[user]'
-            '\n\t\tname = {name}'
-            '\n\t\temail = {email}'
+            '\n        name = {name}'
+            '\n        email = {email}'
             '\n[http]'
-            '\n\t\tproxy = {http}'
+            '\n        proxy = {http}'
             '\n[https]'
-            '\n\t\tproxy = {https}'
+            '\n        proxy = {https}'
         )
 
         content = content.format(http=uri_http, https=uri_https,
