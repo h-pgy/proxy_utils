@@ -45,7 +45,6 @@ class ProxySetter:
             '\n    https: {https}'
         )
 
-
         content = content.format(http = uri_http, https = uri_https)
 
         file_path = fr'C:/Users/{user}/.condarc'
@@ -78,8 +77,28 @@ class ProxySetter:
     @classmethod
     def set_environ(cls, uri_http, uri_https):
 
-        os.environ['https_proxy'] = uri_https
-        os.environ['http_proxy'] = uri_http
+        os.environ['HTTPS_PROXY'] = uri_https
+        os.environ['HTTP_PROXY'] = uri_http
+
+    @classmethod
+    def set_pip_config(cls, uri_htpp):
+
+        content = (
+            '[global]\n'
+            'proxy = ' + uri_htpp
+        )
+
+        if not os.path.exists(r'C:\Users\d835916\AppData\Roaming\pip'):
+            os.mkdir(r'C:\Users\d835916\AppData\Roaming\pip')
+        with open(r'C:\Users\d835916\AppData\Roaming\pip\pip.ini', 'w') as f:
+            f.write(content)
+
+    @classmethod
+    def set_venv_proxy_variables(cls, uri_http, ui_https):
+
+        os.system(r'.\venv\Scripts\activate')
+        os.system(f"set HTTP_PROXY={uri_http}")
+        os.system(f"set HTTPS_PROXY={ui_https}")
 
     @classmethod
     def set_proxy(cls, rede_obj):
@@ -90,12 +109,16 @@ class ProxySetter:
         cls.set_environ(uri_http, uri_https)
         cls.update_condarc(uri_http, uri_https, rede_obj.user)
         cls.update_gitconfig(uri_http, uri_https, rede_obj.user)
-
-
+        cls.set_pip_config(uri_http)
+        cls.set_venv_proxy_variables(uri_http, uri_https)
+        quit()
 
 if __name__ == "__main__":
 
    ProxySetter.set_proxy(RedePmsp)
+
+
+
 
 
 
